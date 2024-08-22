@@ -32,6 +32,7 @@ const DetailsPage = () => {
   const [limitedTrip, setLimitedTrip] = useState(true);
   const ticketId = bookingInfo?.ticketing_unique_id;
   const [totalSeat, setTotalSeat] = useState(0);
+  const [payUrl, setPayUrl] = useState(null);
 
 
   useEffect(() => {
@@ -182,6 +183,15 @@ const DetailsPage = () => {
     }
   };
 
+
+  const handleBkash = async () => {
+    const info = {
+      amount: 20,
+      invoice: "1136732333101302",
+    };
+    const res = await axiosPublic.post("/api/bkash/payment/create", info);
+    setPayUrl(res.data.data.bkashURL);
+  };
 
 
   if( !passengerData && !passengerDataUn  ) {
@@ -1036,13 +1046,14 @@ const DetailsPage = () => {
                   <div className="pt-8 pb-4 text-center">
                     <p>Please select a payment system</p>
                     <div className="mt-3 flex justify-center items-center gap-2">
-                      <Link className="w-1/4 h-14 overflow-hidden bg-primary4 py-1 shadow-md">
+                      {payUrl ? <a href={payUrl}>Complete Payment</a> :
+                      <div onClick={handleBkash} className="w-1/4 h-14 overflow-hidden bg-primary4 py-1 shadow-md cursor-pointer">
                         <img
                           src={bkash}
                           className="h-full w-full object-contain"
                           alt=""
                         />
-                      </Link>
+                      </div>}
                       <button className="w-1/4 h-14 overflow-hidden bg-primary4 px-3 py-1 shadow-md">
                         <img
                           src={rocket}

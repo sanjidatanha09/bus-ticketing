@@ -1,17 +1,30 @@
 import { useState } from "react";
-import bkash from "../../assets/payment/bkash-logo.png"
-import nagad from "../../assets/payment/nagad-logo.png"
-import rocket from "../../assets/payment/rocket-logo2.svg"
-import mfs from "../../assets/payment/mfd.svg"
+import bkash from "../../assets/payment/bkash-logo.png";
+import nagad from "../../assets/payment/nagad-logo.png";
+import rocket from "../../assets/payment/rocket-logo2.svg";
+import mfs from "../../assets/payment/mfd.svg";
 import { FaExclamationTriangle } from "react-icons/fa";
 import { Link } from "react-router-dom";
 import { Tab } from "@headlessui/react";
+import useAxiosPublic from "../../Hooks/useAxiosPublic";
 function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
 const PaymentDetails = () => {
   const [agree, setAgree] = useState("");
+  const axiosPublic = useAxiosPublic();
+  const [payUrl, setPayUrl] = useState(null);
+
+  const handleBkash = async () => {
+    const info = {
+      amount: 20,
+      invoice: "1136732333101302",
+    };
+    const res = await axiosPublic.post("/api/bkash/payment/create", info);
+    setPayUrl(res.data.data.bkashURL);
+    console.log(res.data);
+  };
 
   return (
     <div className="max-w-7xl mx-auto mt-5 flex gap-4">
@@ -113,14 +126,33 @@ const PaymentDetails = () => {
               <div className="pt-8 pb-4 text-center">
                 <p>Please select a payment system</p>
                 <div className="mt-3 flex justify-center items-center gap-2">
-                  <button className="w-1/4 h-14 overflow-hidden bg-primary4 py-1 shadow-md">
-                    <img src={bkash} className="h-full w-full object-contain" alt="" />
-                  </button>
+                  {payUrl ? (
+                    <a href={payUrl}>Complete Payment</a>
+                  ) : (
+                    <button
+                      onClick={handleBkash}
+                      className="w-1/4 h-14 overflow-hidden bg-primary4 py-1 shadow-md"
+                    >
+                      <img
+                        src={bkash}
+                        className="h-full w-full object-contain"
+                        alt=""
+                      />
+                    </button>
+                  )}
                   <button className="w-1/4 h-14 overflow-hidden bg-primary4 px-3 py-1 shadow-md">
-                    <img src={rocket} className="h-full w-full object-contain" alt="" />
+                    <img
+                      src={rocket}
+                      className="h-full w-full object-contain"
+                      alt=""
+                    />
                   </button>
                   <button className="w-1/4 h-14 overflow-hidden bg-primary4 py-1 shadow-md">
-                    <img src={nagad} className="h-full w-full object-contain" alt="" />
+                    <img
+                      src={nagad}
+                      className="h-full w-full object-contain"
+                      alt=""
+                    />
                   </button>
                   <button className="w-1/4 h-14 bg-primary4 py-1 shadow-md flex gap-2 items-center justify-center">
                     <img src={mfs} className="w-8" alt="" />
@@ -128,8 +160,10 @@ const PaymentDetails = () => {
                   </button>
                 </div>
                 <div className="flex justify-center mt-10">
-        <button className="bg-primary3 px-3 py-1 border-none text-primary2 font-semibold hover:bg-cardBG duration-300 mt-2 flex">Confirm Booking</button>
-        </div>
+                  <button className="bg-primary3 px-3 py-1 border-none text-primary2 font-semibold hover:bg-cardBG duration-300 mt-2 flex">
+                    Confirm Booking
+                  </button>
+                </div>
               </div>
             </Tab.Panel>
             <Tab.Panel
@@ -139,10 +173,12 @@ const PaymentDetails = () => {
               )}
             >
               <div className="pt-8 pb-4 text-center">
-                  <div className="flex gap-3 justify-center items-center">
+                <div className="flex gap-3 justify-center items-center">
                   <FaExclamationTriangle className="text-3xl text-primary3" />
-                  <p className="text-primary3 font-semibold text-lg ">This features is not available right now.</p>
-                  </div>
+                  <p className="text-primary3 font-semibold text-lg ">
+                    This features is not available right now.
+                  </p>
+                </div>
               </div>
             </Tab.Panel>
             <Tab.Panel
@@ -152,10 +188,12 @@ const PaymentDetails = () => {
               )}
             >
               <div className="pt-8 pb-4 text-center">
-                  <div className="flex gap-3 justify-center items-center">
+                <div className="flex gap-3 justify-center items-center">
                   <FaExclamationTriangle className="text-3xl text-primary3" />
-                  <p className="text-primary3 font-semibold text-lg ">This features is not available right now.</p>
-                  </div>
+                  <p className="text-primary3 font-semibold text-lg ">
+                    This features is not available right now.
+                  </p>
+                </div>
               </div>
             </Tab.Panel>
           </Tab.Panels>
