@@ -1,26 +1,33 @@
-import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
+import { useContext, useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
+import { BusProvider } from "../../Provider/BusContext";
 
 const SuccessPage = () => {
     const location = useLocation();
     const axiosPublic = useAxiosPublic();
+    const navigate = useNavigate();
+    const grantToken = localStorage.getItem('grantToken')
+    const {setTrxId} = useContext(BusProvider);
 
     useEffect(() => {
-        const query = new URLSearchParams(location.search);
-        const paymentID = query.get('paymentID');
+        const executePayment = async() => {
+            const query = new URLSearchParams(location.search);
+            const paymentID = query.get('paymentID');
+    
+            if (paymentID) {
+                const res = await axiosPublic.post('/api/bkash/payment/execute', {grantToken, paymentID})
+                if(res.data.paymentID){
+                    setTrxId(res.data.trxID)
+                    localStorage.removeItem('grantToken')
+                    navigate('/invoice')
+                }
+            }
+        } 
+        executePayment()
+    }, [location, grantToken]);
 
-        console.log(paymentID);
-
-        if (paymentID) {
-            axiosPublic.post('/api/bkash/payment/execute', {paymentID})
-            .then(res => {
-                console.log(res.data);
-            })
-        }
-    }, [location]);
-
-    return <div className="text-2xl text-center font-semibold mt-10">Processing payment...</div>;
+    return <div className="text-2xl text-center font-semibold my-10">Your payment is being processing...</div>;
 };
 
 export default SuccessPage;

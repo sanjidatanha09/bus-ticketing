@@ -1,14 +1,13 @@
 import { useContext, useEffect, useState } from "react";
 import { BusProvider } from "../../Provider/BusContext";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { FaExclamationTriangle } from "react-icons/fa";
 import bkash from "../../assets/payment/bkash-logo.png";
-import nagad from "../../assets/payment/nagad-logo.png";
-import rocket from "../../assets/payment/rocket-logo2.svg";
-import mfs from "../../assets/payment/mfd.svg";
+// import nagad from "../../assets/payment/nagad-logo.png";
+// import rocket from "../../assets/payment/rocket-logo2.svg";
+// import mfs from "../../assets/payment/mfd.svg";
 import { Tab } from "@headlessui/react";
-import Swal from "sweetalert2";
 import toast from "react-hot-toast";
 import BtnLoader from "../../Utils/Loader/BtnLoader";
 import Loader from "../../Utils/Loader/Loader";
@@ -24,15 +23,13 @@ const DetailsPage = () => {
   const [passengerData, setPassengerData] = useState(null);
   const [passengerDataUn, setPassengerDataUn] = useState(null);
   const { bookingInfo, trip } = useContext(BusProvider);
-  const { setSaveBookingInfo, setUnBookingInfo } = useContext(BusProvider);
+  const { setSaveBookingInfo, setUnBookingInfo, setGrantToken } = useContext(BusProvider);
   const axiosPublic = useAxiosPublic();
   const [loading, setLoading] = useState(false);
   const [agree, setAgree] = useState("");
-  const navigate = useNavigate();
   const [limitedTrip, setLimitedTrip] = useState(true);
   const ticketId = bookingInfo?.ticketing_unique_id;
   const [totalSeat, setTotalSeat] = useState(0);
-  const [payUrl, setPayUrl] = useState(null);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -66,6 +63,21 @@ const DetailsPage = () => {
       }
     }
   }, [bookingInfo]);
+
+  const handleBkash = async (amount, invoice) => {
+    const info = {
+      amount: amount,
+      invoice: invoice,
+    };
+    const res = await axiosPublic.post("/api/bkash/payment/create", info);
+    if(res.data.grantToken){
+      setLoading(false)
+      setGrantToken(res.data.grantToken)
+      localStorage.setItem("grantToken", res.data.grantToken)
+      window.location.href = res.data.data.bkashURL
+    }
+  };
+
 
   const handleBooking = async (e) => {
     e.preventDefault();
@@ -124,21 +136,10 @@ const DetailsPage = () => {
           bookingInfo
         );
         if (res.data.status_code === 201) {
+          handleBkash(passengerData.totalSeatPrice, res.data.invoiceData.invoice)
           setSaveBookingInfo(res.data);
-          setLoading(false);
-          Swal.fire({
-            title: "Successfully Booked",
-            showDenyButton: true,
-            showCancelButton: true,
-            confirmButtonText: "See Booking",
-            denyButtonText: `Go Home`,
-          }).then((result) => {
-            if (result.isConfirmed) {
-              navigate("/invoice");
-            } else if (result.isDenied) {
-              navigate("/");
-            }
-          });
+          localStorage.setItem('contact_number', phone)
+          localStorage.setItem('pnr', res.data.invoiceData.invoice)
           e.target.reset();
         }
       } catch (error) {
@@ -164,31 +165,14 @@ const DetailsPage = () => {
       );
       if (res.data.status_code === 201) {
         setUnBookingInfo(res.data.busFTRouteList);
-        Swal.fire({
-          title: "Successfully Booked",
-          showDenyButton: true,
-          showCancelButton: true,
-          confirmButtonText: "See Booking",
-          denyButtonText: `Go Home`,
-        }).then((result) => {
-          if (result.isConfirmed) {
-            navigate("/invoice");
-          } else if (result.isDenied) {
-            navigate("/");
-          }
-        });
+        handleBkash(unBooking.total_seat_price, res.data.busFTRouteList.pnr_no)
+        localStorage.setItem("isUn", true)
+        localStorage.setItem("center_name", unBooking.center_name)
+        localStorage.setItem('contact_number', unBooking.contact_number)
+        localStorage.setItem('pnr', res.data.busFTRouteList.pnr_no)
         e.target.reset();
       }
     }
-  };
-
-  const handleBkash = async () => {
-    const info = {
-      amount: 20,
-      invoice: "1136732333101302",
-    };
-    const res = await axiosPublic.post("/api/bkash/payment/create", info);
-    window.location.href = res.data.data.bkashURL
   };
 
   if (!passengerData && !passengerDataUn) {
@@ -825,14 +809,14 @@ const DetailsPage = () => {
               {!limitedTrip && (
                 <div className="flex justify-between">
                   <button className="bg-primary3 px-3 py-1 border-none text-primary2 font-semibold hover:bg-cardBG duration-300 mt-2 flex">
-                    {"Confirm Booking"}
+                    {loading ? <BtnLoader /> :"Confirm Booking"}
                   </button>
-                  <button className="bg-primary3 px-3 py-1 border-none text-primary2 font-semibold hover:bg-cardBG duration-300 mt-2 flex">
-                    Total Price:{" "}
+                  <div className="bg-primary3 px-3 py-1 border-none text-primary2 font-semibold hover:bg-cardBG duration-300 mt-2 flex">
+                    Total Price: {" "} 
                     {passengerDataUn[0]?.getFilterBusList.seat_price *
                       totalSeat}
                     /-
-                  </button>
+                  </div>
                 </div>
               )}
             </div>
@@ -1047,11 +1031,10 @@ const DetailsPage = () => {
                   )}
                 >
                   <div className="pt-8 pb-4 text-center">
-                    <p>Please select a payment system</p>
                     <div className="mt-3 flex justify-center items-center gap-2">
                       <div
                         onClick={handleBkash}
-                        className="w-1/4 h-14 overflow-hidden bg-primary4 py-1 shadow-md cursor-pointer"
+                        className="w-2/4 h-14 overflow-hidden bg-primary4 py-1 shadow-md cursor-pointer"
                       >
                         <img
                           src={bkash}
@@ -1059,24 +1042,24 @@ const DetailsPage = () => {
                           alt=""
                         />
                       </div>
-                      <button className="w-1/4 h-14 overflow-hidden bg-primary4 px-3 py-1 shadow-md">
+                      {/* <div className="w-1/4 h-14 overflow-hidden bg-primary4 px-3 py-1 shadow-md">
                         <img
                           src={rocket}
                           className="h-full w-full object-contain"
                           alt=""
                         />
-                      </button>
-                      <button className="w-1/4 h-14 overflow-hidden bg-primary4 py-1 shadow-md">
+                      </div>
+                      <div className="w-1/4 h-14 overflow-hidden bg-primary4 py-1 shadow-md">
                         <img
                           src={nagad}
                           className="h-full w-full object-contain"
                           alt=""
                         />
-                      </button>
-                      <button className="w-1/4 h-14 bg-primary4 py-1 shadow-md flex gap-2 items-center justify-center">
+                      </div>
+                      <div className="w-1/4 h-14 bg-primary4 py-1 shadow-md flex gap-2 items-center justify-center">
                         <img src={mfs} className="w-8" alt="" />
                         <p className="text-sm font-semibold">Others MFS</p>
-                      </button>
+                      </div> */}
                     </div>
                     <div className="flex justify-center mt-10">
                       <button className="bg-primary3 px-3 py-1 border-none text-primary2 font-semibold hover:bg-cardBG duration-300 mt-2 flex">

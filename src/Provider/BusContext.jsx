@@ -19,6 +19,8 @@ const BusContext = ({ children }) => {
   const [searchTicket, setSearchTicket] = useState(null);
   const [unBookingInfo, setUnBookingInfo] = useState(null);
   const axiosPublic = useAxiosPublic();
+  const [grantToken, setGrantToken] = useState(null);
+  const [trxId, setTrxId] = useState(null);
 
   useEffect(() => {
       const getUserInfo = async () => {
@@ -26,6 +28,7 @@ const BusContext = ({ children }) => {
           const res = await axiosPublic('/api/profile')
           setUser(res.data.userData);
         } catch (error) {
+          console.log(error);
         }
       }
       getUserInfo();
@@ -62,7 +65,11 @@ const BusContext = ({ children }) => {
     searchTicket,
     setSearchTicket,
     unBookingInfo,
-    setUnBookingInfo
+    setUnBookingInfo,
+    grantToken,
+    setGrantToken,
+    trxId,
+    setTrxId
   };
   return <BusProvider.Provider value={info}>{children}</BusProvider.Provider>;
 };
