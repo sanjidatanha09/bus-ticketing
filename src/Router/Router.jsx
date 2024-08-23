@@ -5,8 +5,6 @@ import BusView from '../components/BusView/BusView'
 import ViewSeats2 from "../components/ViewSeats/ViewSeats2";
 import Home from "../Pages/Home/Home";
 import BookingPage from "../components/BookingPage/BookingPage";
-import AdminLogin from "../Pages/Authorization/AdminLogin/AdminLogin";
-import AgentLogin from "../Pages/Authorization/AgentLogin/AgentLogin";
 import SignUp from "../Pages/Authorization/SignUp/SignUp";
 import Gallery from "../Pages/Gallery/Gallery";
 import Conditions from "../Pages/Coditions/Conditions";
@@ -15,6 +13,7 @@ import DetailsPage from "../Pages/DetailsPage/DetailsPage";
 import BlogDetails from "../Pages/Blog/BlogDetails";
 import Invoice from "../Pages/Invoice/Invoice";
 import FindInvoice from "../Pages/FindInvoice/FindInvoice";
+import SuccessPage from "../Pages/SuccessPage/SuccessPage";
 
 const router = createBrowserRouter([
     {
@@ -69,6 +68,10 @@ const router = createBrowserRouter([
         {
             path: "/findInvoice",
             element: <FindInvoice />
+        },
+        {
+            path: "/successPage",
+            element: <SuccessPage />
         }
       ]
 

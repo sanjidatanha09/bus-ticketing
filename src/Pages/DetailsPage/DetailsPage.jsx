@@ -34,11 +34,9 @@ const DetailsPage = () => {
   const [totalSeat, setTotalSeat] = useState(0);
   const [payUrl, setPayUrl] = useState(null);
 
-
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-  
 
   useEffect(() => {
     setLoading(true);
@@ -55,15 +53,16 @@ const DetailsPage = () => {
       setLimitedTrip(false);
 
       try {
-        axiosPublic.post("/api/get-filter-bus-list-for-un", trip)
-       .then((res) => {
-        if (res.data.status_code === 201) {
-          setPassengerDataUn(res.data.busFTRouteList);
-          setLoading(false);
-        }
-      });
+        axiosPublic
+          .post("/api/get-filter-bus-list-for-un", trip)
+          .then((res) => {
+            if (res.data.status_code === 201) {
+              setPassengerDataUn(res.data.busFTRouteList);
+              setLoading(false);
+            }
+          });
       } catch (error) {
-        setLoading(false)
+        setLoading(false);
       }
     }
   }, [bookingInfo]);
@@ -183,29 +182,32 @@ const DetailsPage = () => {
     }
   };
 
-
   const handleBkash = async () => {
     const info = {
       amount: 20,
       invoice: "1136732333101302",
     };
     const res = await axiosPublic.post("/api/bkash/payment/create", info);
-    setPayUrl(res.data.data.bkashURL);
+    window.location.href = res.data.data.bkashURL
   };
 
-
-  if( !passengerData && !passengerDataUn  ) {
-    return <Loader />
+  if (!passengerData && !passengerDataUn) {
+    return <Loader />;
   }
-  if( !passengerData && !passengerDataUn  ) {
-    return <p className="my-10 text-center text-cardBG font-semibold text-xl">
-    You have no data
-  </p>
+  if (!passengerData && !passengerDataUn) {
+    return (
+      <p className="my-10 text-center text-cardBG font-semibold text-xl">
+        You have no data
+      </p>
+    );
   }
 
   return (
-    <form onSubmit={handleBooking} className="max-w-7xl mx-auto" id="scrollable-container">
-      
+    <form
+      onSubmit={handleBooking}
+      className="max-w-7xl mx-auto"
+      id="scrollable-container"
+    >
       <div className="flex flex-col-reverse md:flex-row gap-4 mt-6">
         <div className="md:w-2/3 bg-primary2 p-2 border-t-[5px] border-t-primary3 rounded-md">
           <div className="px-2 py-4">
@@ -828,7 +830,8 @@ const DetailsPage = () => {
                   <button className="bg-primary3 px-3 py-1 border-none text-primary2 font-semibold hover:bg-cardBG duration-300 mt-2 flex">
                     Total Price:{" "}
                     {passengerDataUn[0]?.getFilterBusList.seat_price *
-                      totalSeat}/-
+                      totalSeat}
+                    /-
                   </button>
                 </div>
               )}
@@ -1046,14 +1049,16 @@ const DetailsPage = () => {
                   <div className="pt-8 pb-4 text-center">
                     <p>Please select a payment system</p>
                     <div className="mt-3 flex justify-center items-center gap-2">
-                      {payUrl ? <a href={payUrl}>Complete Payment</a> :
-                      <div onClick={handleBkash} className="w-1/4 h-14 overflow-hidden bg-primary4 py-1 shadow-md cursor-pointer">
+                      <div
+                        onClick={handleBkash}
+                        className="w-1/4 h-14 overflow-hidden bg-primary4 py-1 shadow-md cursor-pointer"
+                      >
                         <img
                           src={bkash}
                           className="h-full w-full object-contain"
                           alt=""
                         />
-                      </div>}
+                      </div>
                       <button className="w-1/4 h-14 overflow-hidden bg-primary4 px-3 py-1 shadow-md">
                         <img
                           src={rocket}
