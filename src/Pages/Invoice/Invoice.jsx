@@ -1,12 +1,15 @@
 // import { useContext, useState } from "react";
 // import { BusProvider } from "../../Provider/BusContext";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import ReactToPrint from "react-to-print";
 import InvoiceContent from "./InvoiceContent";
 import { FiPrinter } from "react-icons/fi";
 
 const Invoice = () => {
   const componentRef = useRef();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   return (
     <div className="max-w-7xl mx-auto mt-3">

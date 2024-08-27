@@ -13,6 +13,10 @@ const Gallery = () => {
   const axiosPublic = useAxiosPublic();
   const imgUrl = 'https://adminpanel.admissionbus.com/uploads/galleryPhoto/'
 
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+
   const fetchData = async () => {
     setLoading(true);
     const res = await axiosPublic("/api/get-gallery-list");

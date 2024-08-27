@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import BtnLoader from "../../Utils/Loader/BtnLoader";
 import { FaInfoCircle } from "react-icons/fa";
 import { BusProvider } from "../../Provider/BusContext";
@@ -8,6 +8,10 @@ const FindInvoice = () => {
   const [loading, setLoading] = useState(false);
   const {setSearchTicket} = useContext(BusProvider);
   const [search, setSearch] = useState(false)
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

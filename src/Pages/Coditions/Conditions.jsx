@@ -1,6 +1,12 @@
+import { useEffect } from "react";
 import { FaHandPointRight } from "react-icons/fa";
 
 const Conditions = () => {
+
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  
   return (
     <div className="max-w-5xl mx-auto">
       <div>
