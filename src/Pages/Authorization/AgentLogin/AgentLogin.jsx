@@ -10,7 +10,7 @@ const AgentLogin = () => {
 
   const handleLogOut = async (e) => {
     e.preventDefault();
-    setLoading(true)
+    setLoading(true);
     const phone = e.target.phone.value;
     const password = e.target.password.value;
     const userInfo = {
@@ -18,10 +18,13 @@ const AgentLogin = () => {
       password,
     };
 
-    const res = await axios.post("https://adminpanel.admissionbus.com/api/login", userInfo);
+    const res = await axios.post(
+      "https://backend.admissionbus.com/api/login",
+      userInfo
+    );
     if (res.data.message === "Login successfully") {
       toast.success("Successfully Login");
-      setLoading(false)
+      setLoading(false);
       e.target.reset();
       navigate("/");
     }
@@ -70,12 +73,15 @@ const AgentLogin = () => {
               type="submit"
               className="w-full px-8 py-3 font-semibold rounded-md bg-cardBG bg-opacity-35 text-primary1 hover:bg-opacity-15 duration-300"
             >
-              {loading ? <BtnLoader/> : "Log In"}
+              {loading ? <BtnLoader /> : "Log In"}
             </button>
           </div>
           <p className="px-6 text-sm text-center text-gray-400">
             {"Don't have an account yet?"}
-            <Link to='/signUp' className="hover:underline text-primary1 ml-2">Sign up</Link>.
+            <Link to="/signUp" className="hover:underline text-primary1 ml-2">
+              Sign up
+            </Link>
+            .
           </p>
         </div>
       </form>

@@ -38,7 +38,7 @@ const SignUp = () => {
 
     try {
       const res = await axios.post(
-        "https://adminpanel.admissionbus.com/api/register",
+        "https://backend.admissionbus.com/api/register",
         userInfo
       );
       if (res.data.userData) {
@@ -47,13 +47,12 @@ const SignUp = () => {
         navigate("/agentLogin");
         e.target.reset();
       }
-      
     } catch (error) {
       setLoading(false);
       setError(error.response.data.errors);
     }
   };
-  
+
   return (
     <div className="flex flex-col max-w-3xl p-6 rounded-md sm:p-10 bg-primary2 text-primary1 my-10 mx-auto">
       <div className="mb-8 text-center">

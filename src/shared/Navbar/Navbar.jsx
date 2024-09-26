@@ -6,15 +6,15 @@ import { useContext, useState } from "react";
 import { BusProvider } from "../../Provider/BusContext";
 import { FaFacebook } from "react-icons/fa";
 import { IoLogoWhatsapp } from "react-icons/io5";
-import fbTop from '../../assets/banner/facebookTop.jpeg'
-import wtTop from '../../assets/banner/whatsAppTop.jpeg'
+import fbTop from "../../assets/banner/facebookTop.jpeg";
+import wtTop from "../../assets/banner/whatsAppTop.jpeg";
 
 const Navbar = () => {
   const [loading, setLoading] = useState(false);
   const axiosPublic = useAxiosPublic();
   const navigate = useNavigate();
   const { user } = useContext(BusProvider);
-  const whatsappNumber = '+8801868242527'
+  const whatsappNumber = "+8801868242527";
 
   const handleLogout = async () => {
     setLoading(true);
@@ -31,18 +31,30 @@ const Navbar = () => {
       <div className="bg-primary3">
         <div className="max-w-7xl mx-auto text-primary4 md:px-5">
           <div className="flex gap-3 justify-end items-center">
-            <a href="https://www.facebook.com/printzone2000?mibextid=ZbWKwL" target="_blank" className="">
+            <a
+              href="https://www.facebook.com/printzone2000?mibextid=ZbWKwL"
+              target="_blank"
+              className=""
+            >
               {/* <img src={fbTop} className="h-7" alt="" /> */}
               <div className="flex items-center gap-2 bg-fbColor p-2 h-full">
-              <FaFacebook className="text-3xl md:text-2xl" />
-              <h1 className="text-xs md:text-sm">ফেসবুকে নতুন নতুন আপডেট পেতে ক্লিক করুন</h1>
+                <FaFacebook className="text-3xl md:text-2xl" />
+                <h1 className="text-xs md:text-sm">
+                  ফেসবুকে নতুন নতুন আপডেট পেতে ক্লিক করুন
+                </h1>
               </div>
-              </a>
-            <a href={`https://wa.me/${whatsappNumber}`} target="_blank" className="">
-            {/* <img src={wtTop} className="h-7" alt="" /> */}
-            <div className="flex items-center gap-2 bg-wtColor p-2">
-              <IoLogoWhatsapp className="text-3xl md:text-2xl" />
-              <h1 className="text-xs md:text-sm">হোয়াটসঅ্যাপের মাধ্যমে বুকিং দিতে ক্লিক করুন</h1>
+            </a>
+            <a
+              href={`https://wa.me/${whatsappNumber}`}
+              target="_blank"
+              className=""
+            >
+              {/* <img src={wtTop} className="h-7" alt="" /> */}
+              <div className="flex items-center gap-2 bg-wtColor p-2">
+                <IoLogoWhatsapp className="text-3xl md:text-2xl" />
+                <h1 className="text-xs md:text-sm">
+                  হোয়াটসঅ্যাপের মাধ্যমে বুকিং দিতে ক্লিক করুন
+                </h1>
               </div>
             </a>
           </div>
@@ -72,39 +84,39 @@ const Navbar = () => {
               className="menu menu-sm dropdown-content mt-3 z-[1] p-0 shadow bg-primary2 rounded-md w-52"
             >
               <li>
-              <NavLink className="text-md rounded-sm" to="/">
-                Home
-              </NavLink>
-            </li>
-            <li>
-              <NavLink className="text-md rounded-sm" to="/findInvoice">
-                Find Invoice
-              </NavLink>
-            </li>
-            <li>
-              <NavLink className="text-md rounded-sm" to="/gallery">
-                Gallery
-              </NavLink>
-            </li>
-            <li>
-              <NavLink className="text-md rounded-sm" to="/blog">
-                Blog
-              </NavLink>
-            </li>
-            <li>
-              <NavLink className="text-md rounded-sm" to="/conditions">
-                Conditions
-              </NavLink>
-            </li>
-            <li>
-              <a
-                href="https://adminpanel.admissionbus.com/admin/dashboard"
-                target="_blank"
-                className="bg-secondary1 bg-opacity-30 rounded-sm"
-              >
-                <button className="text-md font-semibold">Admin Login</button>
-              </a>
-            </li>
+                <NavLink className="text-md rounded-sm" to="/">
+                  Home
+                </NavLink>
+              </li>
+              <li>
+                <NavLink className="text-md rounded-sm" to="/findInvoice">
+                  Find Invoice
+                </NavLink>
+              </li>
+              <li>
+                <NavLink className="text-md rounded-sm" to="/gallery">
+                  Gallery
+                </NavLink>
+              </li>
+              <li>
+                <NavLink className="text-md rounded-sm" to="/blog">
+                  Blog
+                </NavLink>
+              </li>
+              <li>
+                <NavLink className="text-md rounded-sm" to="/conditions">
+                  Conditions
+                </NavLink>
+              </li>
+              <li>
+                <a
+                  href="https://backend.admissionbus.com/admin/dashboard"
+                  target="_blank"
+                  className="bg-secondary1 bg-opacity-30 rounded-sm"
+                >
+                  <button className="text-md font-semibold">Admin Login</button>
+                </a>
+              </li>
             </ul>
           </div>
           <img src={logo} alt="" className="w-20" />
@@ -139,7 +151,7 @@ const Navbar = () => {
             </li>
             <li>
               <a
-                href="https://adminpanel.admissionbus.com/admin/dashboard"
+                href="https://backend.admissionbus.com/admin/dashboard"
                 target="_blank"
                 className="bg-secondary1 bg-opacity-30 rounded-sm"
               >

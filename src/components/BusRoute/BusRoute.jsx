@@ -14,7 +14,8 @@ const BusRoute = () => {
   const { route, routeLoading } = useGetRoute();
   const { setRoute, setLoading } = useContext(BusProvider);
   const [unRouteData, setUnRouteData] = useState(null);
-  const imgUrl = "https://adminpanel.admissionbus.com/backend/uploads/destinationImage/";
+  const imgUrl =
+    "https://backend.admissionbus.com/backend/uploads/destinationImage/";
 
   const fetchUnlimitedData = async () => {
     try {
@@ -22,8 +23,7 @@ const BusRoute = () => {
       if ((res.data.status_code = 201)) {
         setUnRouteData(res.data);
       }
-    } catch (error) {
-    }
+    } catch (error) {}
   };
 
   useEffect(() => {
@@ -48,7 +48,9 @@ const BusRoute = () => {
     setIsOpenUn(true);
     setLoading(true);
     try {
-      const res = await axiosPublic(`/api/get-unit-list-with-route-for-un/${id}`);
+      const res = await axiosPublic(
+        `/api/get-unit-list-with-route-for-un/${id}`
+      );
       if (res.data.status_code === 201) {
         setRoute({ unit: res.data.unitList, destination_id: id });
         setLoading(false);
@@ -56,7 +58,7 @@ const BusRoute = () => {
     } catch (error) {
       setLoading(false);
     }
-  }
+  };
 
   if (routeLoading) {
     return <Loader />;

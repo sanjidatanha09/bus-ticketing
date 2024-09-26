@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const axiosInstance = axios.create({
-  baseURL: "https://adminpanel.admissionbus.com",
+  baseURL: "https://backend.admissionbus.com",
 });
 
 const useAxiosPublic = () => {

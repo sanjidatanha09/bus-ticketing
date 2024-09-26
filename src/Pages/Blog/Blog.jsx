@@ -9,29 +9,28 @@ const Blog = () => {
   const [blog, setBlog] = useState([]);
   const [errMessage, setErrMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const imgUrl = 'https://adminpanel.admissionbus.com/uploads/blog_img/'
+  const imgUrl = "https://backend.admissionbus.com/uploads/blog_img/";
 
   const fetchData = async () => {
-    setLoading(true)
+    setLoading(true);
     const res = await axiosPublic("/api/get-blog-list");
     if (res.data.status_code === 201) {
       setBlog(res.data);
-      setLoading(false)
-      if(res.data.blogData.length === 0){
-        setErrMessage('No Blog Data')
+      setLoading(false);
+      if (res.data.blogData.length === 0) {
+        setErrMessage("No Blog Data");
       }
     } else {
-      return setErrMessage("Something Went Wrong.") && setLoading(false)
+      return setErrMessage("Something Went Wrong.") && setLoading(false);
     }
   };
-
 
   useEffect(() => {
     fetchData();
   }, []);
 
-  if(loading){
-    return <Loader />
+  if (loading) {
+    return <Loader />;
   }
 
   return (
@@ -41,7 +40,10 @@ const Blog = () => {
       </p>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4 justify-center">
         {blog?.blogData?.map((item, idx) => (
-          <div key={idx} className="rounded-md border-[2px] border-cardBG shadow-xl shadow-shadowColor group">
+          <div
+            key={idx}
+            className="rounded-md border-[2px] border-cardBG shadow-xl shadow-shadowColor group"
+          >
             <div className="w-full h-60 overflow-hidden">
               <img
                 src={`${imgUrl}${item?.photo}`}
@@ -60,7 +62,11 @@ const Blog = () => {
                     `${item?.solid_post.split(" ").slice(0, 30).join(" ")} .......`
                 }
               </p> */}
-              <div dangerouslySetInnerHTML={{ __html: item?.solid_post.split(" ").slice(0, 30).join(" ") }} />
+              <div
+                dangerouslySetInnerHTML={{
+                  __html: item?.solid_post.split(" ").slice(0, 30).join(" "),
+                }}
+              />
               <div className="mt-2">
                 <Link
                   to={`/blogDetails/${item?.id}`}

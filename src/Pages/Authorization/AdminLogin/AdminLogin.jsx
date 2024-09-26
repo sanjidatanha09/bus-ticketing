@@ -9,11 +9,11 @@ const AdminLogin = () => {
   const navigate = useNavigate();
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
-  const {setUserCall} = useContext(BusProvider)
+  const { setUserCall } = useContext(BusProvider);
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setLoading(true)
+    setLoading(true);
     const phone = e.target.phone.value;
     const password = e.target.password.value;
     const userInfo = {
@@ -22,16 +22,19 @@ const AdminLogin = () => {
     };
 
     try {
-      const res = await axios.post("https://adminpanel.admissionbus.com/api/login", userInfo);
+      const res = await axios.post(
+        "https://backend.admissionbus.com/api/login",
+        userInfo
+      );
       if (res.data.message === "Login successfully") {
-        setUserCall(true)
+        setUserCall(true);
         toast.success(res.data.message);
         e.target.reset();
-        setLoading(false)
+        setLoading(false);
         navigate("/");
       }
     } catch (error) {
-      setLoading(false)
+      setLoading(false);
       setError(error.response.data.message);
     }
   };
@@ -72,7 +75,9 @@ const AdminLogin = () => {
               className="w-full px-3 py-2 border rounded-md border-primary1 bg-transparent text-primary1"
             />
           </div>
-          {error && <p className="text-cardBG text-sm font-semibold">{error}</p>}
+          {error && (
+            <p className="text-cardBG text-sm font-semibold">{error}</p>
+          )}
         </div>
         <div className="space-y-2">
           <div>
@@ -80,7 +85,7 @@ const AdminLogin = () => {
               type="submit"
               className="w-full px-8 py-2 text-lg h-12 font-semibold rounded-md bg-cardBG bg-opacity-35 text-primary1 hover:bg-opacity-15 duration-300"
             >
-              {loading ? <BtnLoader/> : "Log In"}
+              {loading ? <BtnLoader /> : "Log In"}
             </button>
           </div>
           <p className="px-6 text-sm text-center text-gray-400">

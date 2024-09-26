@@ -10,7 +10,7 @@ const BlogDetails = () => {
   const [blogDetails, setBlogDetails] = useState([]);
   const [errMessage, setErrMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const imgUrl = "https://adminpanel.admissionbus.com/uploads/blog_img/";
+  const imgUrl = "https://backend.admissionbus.com/uploads/blog_img/";
 
   const fetchData = async () => {
     setLoading(true);
@@ -26,12 +26,10 @@ const BlogDetails = () => {
   useEffect(() => {
     fetchData();
   }, []);
-  
 
   if (loading) {
     return <Loader />;
   }
-
 
   return (
     <div className="max-w-5xl mx-auto">
@@ -59,5 +57,3 @@ const BlogDetails = () => {
 };
 
 export default BlogDetails;
-
-

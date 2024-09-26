@@ -11,7 +11,7 @@ const Gallery = () => {
   const [loading, setLoading] = useState(false);
   const { setModalImage } = useContext(BusProvider);
   const axiosPublic = useAxiosPublic();
-  const imgUrl = 'https://adminpanel.admissionbus.com/uploads/galleryPhoto/'
+  const imgUrl = "https://backend.admissionbus.com/uploads/galleryPhoto/";
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -22,11 +22,10 @@ const Gallery = () => {
     const res = await axiosPublic("/api/get-gallery-list");
     setGalleryData(res.data.photoGalleryData);
     setLoading(false);
-    if(res.data.blogData?.length === 0){
-      setErrMessage('No Blog Data')
+    if (res.data.blogData?.length === 0) {
+      setErrMessage("No Blog Data");
     }
   };
-
 
   useEffect(() => {
     fetchData();
