@@ -10,7 +10,7 @@ const BlogDetails = () => {
   const [blogDetails, setBlogDetails] = useState([]);
   const [errMessage, setErrMessage] = useState("");
   const [loading, setLoading] = useState(false);
-  const imgUrl = "https://backend.admissionbus.com/uploads/blog_img/";
+  const imgUrl = "https://admissionbus.com/backendpanel/uploads/blog_img/";
 
   const fetchData = async () => {
     setLoading(true);

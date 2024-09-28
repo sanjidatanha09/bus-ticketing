@@ -15,7 +15,7 @@ const BusRoute = () => {
   const { setRoute, setLoading } = useContext(BusProvider);
   const [unRouteData, setUnRouteData] = useState(null);
   const imgUrl =
-    "https://backend.admissionbus.com/backend/uploads/destinationImage/";
+    "https://admissionbus.com/backendpanel/backend/uploads/destinationImage/";
 
   const fetchUnlimitedData = async () => {
     try {

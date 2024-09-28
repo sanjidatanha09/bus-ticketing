@@ -23,7 +23,7 @@ const AdminLogin = () => {
 
     try {
       const res = await axios.post(
-        "https://backend.admissionbus.com/api/login",
+        "https://admissionbus.com/backendpanel/api/login",
         userInfo
       );
       if (res.data.message === "Login successfully") {

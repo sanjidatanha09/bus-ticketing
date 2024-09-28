@@ -38,7 +38,7 @@ const SignUp = () => {
 
     try {
       const res = await axios.post(
-        "https://backend.admissionbus.com/api/register",
+        "https://admissionbus.com/backendpanel/api/register",
         userInfo
       );
       if (res.data.userData) {

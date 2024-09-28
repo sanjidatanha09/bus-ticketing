@@ -110,7 +110,7 @@ const Navbar = () => {
               </li>
               <li>
                 <a
-                  href="https://backend.admissionbus.com/admin/dashboard"
+                  href="https://admissionbus.com/backendpanel/admin/dashboard"
                   target="_blank"
                   className="bg-secondary1 bg-opacity-30 rounded-sm"
                 >
@@ -151,7 +151,7 @@ const Navbar = () => {
             </li>
             <li>
               <a
-                href="https://backend.admissionbus.com/admin/dashboard"
+                href="https://admissionbus.com/backendpanel/admin/dashboard"
                 target="_blank"
                 className="bg-secondary1 bg-opacity-30 rounded-sm"
               >

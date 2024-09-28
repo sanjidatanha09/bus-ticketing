@@ -11,7 +11,7 @@ const Gallery = () => {
   const [loading, setLoading] = useState(false);
   const { setModalImage } = useContext(BusProvider);
   const axiosPublic = useAxiosPublic();
-  const imgUrl = "https://backend.admissionbus.com/uploads/galleryPhoto/";
+  const imgUrl = "https://admissionbus.com/backendpanel/uploads/galleryPhoto/";
 
   useEffect(() => {
     window.scrollTo(0, 0);
