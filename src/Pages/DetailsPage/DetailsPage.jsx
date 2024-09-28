@@ -70,6 +70,7 @@ const DetailsPage = () => {
       invoice: invoice,
     };
     const res = await axiosPublic.post("/api/bkash/payment/create", info);
+    console.log(res)
     if(res.data.grantToken){
       setLoading(false)
       setGrantToken(res.data.grantToken)
@@ -274,7 +275,7 @@ const DetailsPage = () => {
                       Rangamati govt college, College gate, Rangamati
                     </option>
                     <option value="Lakers' Public School & College, Kathaltali, Rangamati">
-                      Lakers' Public School & College, Kathaltali, Rangamati
+                      Lakers&apos; Public School & College, Kathaltali, Rangamati
                     </option>
                     <option value="Rangamati Govt. Mohila College, Reserve Bazar, Rangamati">
                       Rangamati Govt. Mohila College, Reserve Bazar, Rangamati
