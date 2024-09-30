@@ -205,7 +205,6 @@ const ShowBusCard = ({ setShowSeat, showSeat, busList, togglePopOpen, idx }) => 
   const [timer, setTimer] = useState("00:08:00");
   const Ref = useRef(null);
 
-
   const {
     id,
     trip_name,
@@ -310,14 +309,7 @@ const ShowBusCard = ({ setShowSeat, showSeat, busList, togglePopOpen, idx }) => 
     if(checkOthersUserBooking){
       return toast.error('seat is already booked')
     }
-    const totalBookedSeatsCount = tempBusSeat.length;
 
-    // Check if the total booked seats have reached the limit of 6
-    if (totalBookedSeatsCount >= 6) {
-      return toast.error("The maximum limit of 6 seats has been reached. No more bookings can be made.");
-    }
-  
-   
     const filter = tempBusSeat.find(
       (item) => booking.seat_number === item.seat_no
     );
@@ -375,9 +367,6 @@ const ShowBusCard = ({ setShowSeat, showSeat, busList, togglePopOpen, idx }) => 
   const handleShowSeatWithAuth = (id) => {
       setShowSeat(!showSeat);
   };
-
- 
-
 
   return (
     <div>
@@ -465,7 +454,7 @@ const ShowBusCard = ({ setShowSeat, showSeat, busList, togglePopOpen, idx }) => 
           </p>
             <h1 className="text-primary3 ml-2 text-2xl mt-2 border max-w-fit px-4 py-1">{timer}</h1> 
             </div>
-            <div className="w-60 bg-primary4 p-4 space-y-2">
+          <div className="w-60 bg-primary4 p-4 space-y-2">
             <div className="flex justify-between">
               <div>
                 <PiArrowFatLinesLeftLight className="text-3xl text-primary3" />

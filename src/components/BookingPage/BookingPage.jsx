@@ -4,8 +4,6 @@ import ShowBusCard from "../ViewSeats/ShowBusCard";
 import Loader from "../../Utils/Loader/Loader";
 import useGetTrip from "../../Hooks/useGetTrip";
 
-
-
 const BookingPage = () => {
   const { trip } = useContext(BusProvider);
   const [showSeat, setShowSeat] = useState(null);
@@ -14,16 +12,13 @@ const BookingPage = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, []);
-  
 
   const togglePopOpen = (idx) => {
     setShowSeat((prevIdx) => (prevIdx === idx ? null : idx));
   };
-
   if (loading) {
     return <Loader />;
   }
-
   return (
     <div>
       <div className="max-w-7xl mx-auto mt-10">

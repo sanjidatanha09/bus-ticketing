@@ -89,10 +89,10 @@ const DetailsPage = () => {
     const email = e.target?.nameUnderBooking?.value;
     const seat = e.target?.totalSeat?.value;
     const center_name = e.target?.center?.value;
-    const passenger_1 = e.target?.passenger_1?.value;
-    const passenger_2 = e.target?.passenger_2?.value;
-    const passenger_3 = e.target?.passenger_3?.value;
-    const passenger_4 = e.target?.passenger_4?.value;
+    // const passenger_1 = e.target?.passenger_1?.value;
+    // const passenger_2 = e.target?.passenger_2?.value;
+    // const passenger_3 = e.target?.passenger_3?.value;
+    // const passenger_4 = e.target?.passenger_4?.value;
 
     if (limitedTrip) {
       try {
@@ -107,16 +107,16 @@ const DetailsPage = () => {
           );
           return obj;
         };
-        const dynamicPassenger = [
-          { name: passenger_1, gender: gender1 ? gender1 : "" },
-          { name: passenger_2, gender: gender2 ? gender2 : "" },
-          { name: passenger_3, gender: gender3 ? gender3 : "" },
-          { name: passenger_4, gender: gender4 ? gender4 : "" },
-        ];
-        const dynamicPassengerObject = createPassengerObject(
-          passengerData?.getUserTicketIds,
-          dynamicPassenger
-        );
+        // const dynamicPassenger = [
+        //   { name: passenger_1, gender: gender1 ? gender1 : "" },
+        //   { name: passenger_2, gender: gender2 ? gender2 : "" },
+        //   { name: passenger_3, gender: gender3 ? gender3 : "" },
+        //   { name: passenger_4, gender: gender4 ? gender4 : "" },
+        // ];
+        // const dynamicPassengerObject = createPassengerObject(
+        //   passengerData?.getUserTicketIds,
+        //   dynamicPassenger
+        // );
 
         const bookingInfo = {
           ticketing_unique_id: ticketId,
@@ -126,7 +126,7 @@ const DetailsPage = () => {
           total_seat: passengerData?.totalSeat,
           total_seat_price: passengerData?.totalSeatPrice,
           paid_amount: passengerData?.totalSeatPrice,
-          user_ticket_id: dynamicPassengerObject,
+          // user_ticket_id: dynamicPassengerObject,
           contact_number: phone,
           contact_email: email || null,
           contact_name: name,
@@ -293,7 +293,7 @@ const DetailsPage = () => {
                 </div>
               )}
               {/* Passenger Information */}
-              {limitedTrip && (
+              {/* {limitedTrip && (
                 <h1 className="font-semibold text-xl mt-4">
                   Passenger Information
                 </h1>
@@ -819,7 +819,7 @@ const DetailsPage = () => {
                     /-
                   </div>
                 </div>
-              )}
+              )} */}
             </div>
           </div>
         </div>

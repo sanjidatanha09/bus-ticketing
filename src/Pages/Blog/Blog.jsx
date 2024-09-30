@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/rules-of-hooks */
 import { MdOutlineWatchLater } from "react-icons/md";
 import { Link } from "react-router-dom";
 import useAxiosPublic from "../../Hooks/useAxiosPublic";
@@ -32,6 +33,9 @@ const Blog = () => {
   if (loading) {
     return <Loader />;
   }
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  // }, []);
 
   return (
     <div className="max-w-7xl mx-auto mt-10">
