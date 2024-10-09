@@ -71,11 +71,11 @@ const DetailsPage = () => {
     };
     const res = await axiosPublic.post("/api/bkash/payment/create", info);
     console.log(res)
-    if(res.data.grantToken){
+    if (res.data.grantToken) {
       setLoading(false)
       setGrantToken(res.data.grantToken)
       localStorage.setItem("grantToken", res.data.grantToken)
-      window.location.href = res.data.data.bkashURL
+      // window.location.href = res.data.data.bkashURL
     }
   };
 
@@ -100,10 +100,10 @@ const DetailsPage = () => {
           const obj = {};
           numPassengers?.map(
             (item, idx) =>
-              (obj[item] = {
-                name: dynamicPassenger[idx].name,
-                gender: dynamicPassenger[idx].gender,
-              })
+            (obj[item] = {
+              name: dynamicPassenger[idx].name,
+              gender: dynamicPassenger[idx].gender,
+            })
           );
           return obj;
         };
@@ -132,13 +132,19 @@ const DetailsPage = () => {
           contact_name: name,
         };
 
-        const res = await axiosPublic.post("/api/bkash/payment/create",bookingInfo);
-        if (res.data.status_code === 201) {
-          handleBkash(passengerData.totalSeatPrice, res.data.invoiceData.invoice)
+        const res = await axiosPublic.post("/api/bkash/payment/create", bookingInfo);
+        console.log(res)
+        if (res.data.data.statusCode === '0000') {
+          console.log(res.data.data.statusCode)
+          // handleBkash(passengerData.totalSeatPrice, res.data.invoiceData.invoice)
           setSaveBookingInfo(res.data);
-          localStorage.setItem('contact_number', phone)
-          localStorage.setItem('pnr', res.data.invoiceData.invoice)
+          setGrantToken(res.data.grantToken)
+          localStorage.setItem("grantToken", res.data.grantToken)
+          // localStorage.setItem('contact_number', phone)
+          // localStorage.setItem('pnr', res.data.invoiceData.invoice)
           e.target.reset();
+          window.location.href = res.data.data.bkashURL
+
         }
       } catch (error) {
         setLoading(false);
