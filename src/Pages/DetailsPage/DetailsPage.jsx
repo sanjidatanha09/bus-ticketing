@@ -23,7 +23,7 @@ const DetailsPage = () => {
   const [passengerData, setPassengerData] = useState(null);
   const [passengerDataUn, setPassengerDataUn] = useState(null);
   const { bookingInfo, trip } = useContext(BusProvider);
-  const { setSaveBookingInfo, setUnBookingInfo, setGrantToken } = useContext(BusProvider);
+  const { setSaveBookingInfo, setUnBookingInfo, setGrantToken,setTicketBillPayBkashId } = useContext(BusProvider);
   const axiosPublic = useAxiosPublic();
   const [loading, setLoading] = useState(false);
   const [agree, setAgree] = useState("");
@@ -135,13 +135,15 @@ const DetailsPage = () => {
         const res = await axiosPublic.post("/api/bkash/payment/create", bookingInfo);
         console.log(res)
         if (res.data.data.statusCode === '0000') {
-          console.log(res.data.data.statusCode)
+          console.log(res.data)
           // handleBkash(passengerData.totalSeatPrice, res.data.invoiceData.invoice)
-          setSaveBookingInfo(res.data);
+          // setSaveBookingInfo(res.data);
           setGrantToken(res.data.grantToken)
           localStorage.setItem("grantToken", res.data.grantToken)
+          localStorage.setItem("paymentID", res.data.data.paymentID)
           // localStorage.setItem('contact_number', phone)
           // localStorage.setItem('pnr', res.data.invoiceData.invoice)
+          localStorage.setItem('ticketBillPayBkashId', res.data.ticketBillPayBkashId)
           e.target.reset();
           window.location.href = res.data.data.bkashURL
 

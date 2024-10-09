@@ -20,6 +20,9 @@ const BusContext = ({ children }) => {
   const [unBookingInfo, setUnBookingInfo] = useState(null);
   const axiosPublic = useAxiosPublic();
   const [grantToken, setGrantToken] = useState(null);
+  const [ticketBillPayBkashId, setTicketBillPayBkashId] = useState(null);
+  console.log(ticketBillPayBkashId)
+  console.log(grantToken)
   const [trxId, setTrxId] = useState(null);
 
   useEffect(() => {
@@ -69,7 +72,10 @@ const BusContext = ({ children }) => {
     grantToken,
     setGrantToken,
     trxId,
-    setTrxId
+    setTrxId,
+    ticketBillPayBkashId,
+    setTicketBillPayBkashId
+
   };
   return <BusProvider.Provider value={info}>{children}</BusProvider.Provider>;
 };
