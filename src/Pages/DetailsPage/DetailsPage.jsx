@@ -132,10 +132,7 @@ const DetailsPage = () => {
           contact_name: name,
         };
 
-        const res = await axiosPublic.post(
-          "/api/save-passenger-details",
-          bookingInfo
-        );
+        const res = await axiosPublic.post("/api/bkash/payment/create",bookingInfo);
         if (res.data.status_code === 201) {
           handleBkash(passengerData.totalSeatPrice, res.data.invoiceData.invoice)
           setSaveBookingInfo(res.data);

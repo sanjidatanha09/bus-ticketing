@@ -372,11 +372,7 @@ const ShowBusCard = ({ setShowSeat, showSeat, busList, togglePopOpen, idx }) => 
     }
   };
 
-  const handleShowSeatWithAuth = (id) => {
-      setShowSeat(!showSeat);
-  };
 
- 
 
 
   return (
